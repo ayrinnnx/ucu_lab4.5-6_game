@@ -17,8 +17,9 @@ class Enemy:
         """
         self.enemy.append(weakness)
 
-    def __str__(self) -> str:
-        return f'{self.enemy[0]} is here!\n{self.enemy[1]}'
+    def describe(self):
+        print(f'{self.enemy[0]} is here!\n{self.enemy[1]}')
+
 
 class Item:
 
@@ -31,8 +32,9 @@ class Item:
         """
         self.item.append(description)
 
-    def __str__(self) -> str:
-        return f'The [{self.item[0]}] is here - {self.item[1]}'
+    def describe(self):
+        print(f'The [{self.item[0]}] is here - {self.item[1]}')
+
 
 class Player:
     pass
@@ -74,12 +76,23 @@ class Room:
         self.additional.append(item)
 
     def get_character(self):
-        pass
+        for elem in self.additional:
+            if isinstance(elem, Enemy):
+                return elem
+        return None
 
     def get_item(self):
-        pass
+        for elem in self.additional:
+            if isinstance(elem, Item):
+                return elem
+        return None
 
     def move(self, move):
+        for elem in self.room[2:]:
+            if elem[1] == move:
+                self.room = elem[0]
+
+    def talk(self):
         pass
 
     def get_details(self) -> None:
@@ -90,11 +103,8 @@ class Room:
         print('--------------------')
         print(self.room[1])
         for elem in self.room[2:]:
-            if not isinstance(elem, dict):
-                print(f'The {elem[0]} is {elem[1]}')
-        for elem in self.additional:
-            if elem != None:
-                print(elem)
+            print(f'The {elem[0]} is {elem[1]}')
+
 
 kitchen = Room("Kitchen")
 kitchen.set_description("A dank and dirty room buzzing with flies.")
@@ -110,3 +120,6 @@ cheese = Item("cheese")
 cheese.set_description("A large and smelly block of cheese")
 kitchen.set_item(cheese)
 kitchen.get_details()
+inhabitant = kitchen.get_character()
+inhabitant.describe()
+item = kitchen.get_item()
