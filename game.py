@@ -20,6 +20,9 @@ class Enemy:
     def describe(self):
         print(f'{self.enemy[0]} is here!\n{self.enemy[1]}')
 
+    def talk(self):
+        print(f'[{self.enemy[0]} says]: {self.enemy[2]}')
+
 
 class Item:
 
@@ -92,9 +95,6 @@ class Room:
             if elem[1] == move:
                 self.room = elem[0]
 
-    def talk(self):
-        pass
-
     def get_details(self) -> None:
         """
         Printing general details of the room.
@@ -122,4 +122,5 @@ kitchen.set_item(cheese)
 kitchen.get_details()
 inhabitant = kitchen.get_character()
 inhabitant.describe()
+inhabitant.talk()
 item = kitchen.get_item()
