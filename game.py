@@ -1,10 +1,11 @@
-class Player:
-    pass
-
 class Friend:
+    pass
+class Person:
     pass
 
 class Enemy:
+
+    defeated = 0
     
     def __init__(self, enemy: str, describtion: str) -> None:
         self.enemy = [enemy, describtion]
@@ -30,11 +31,21 @@ class Enemy:
         print(f'[{self.enemy[0]} says]: {self.enemy[2]}')
 
     def fight(self, item):
-        return True if item == self.enemy[3] else False
+        if item == self.enemy[3]:
+            Enemy.defeated += 1
+            return True
+        return False
     
     def get_defeated(self):
-        pass
+        return Enemy.defeated
+    
 
+class Player(Enemy):
+    def __init__(self, enemy: str, describtion: str) -> None:
+        super().__init__(enemy, describtion)
+
+    def get_defeated(self):
+        return self.defeated
 
 class Item:
 
@@ -60,7 +71,9 @@ class Room:
         self.name = str(room)
         self.description = ''
         self.linking = []
-        self.additional = [None, None]
+        self.character = None
+        self.item = None
+        self.defeated = 0
 
 
     def set_description(self, description: str) -> None:
@@ -80,24 +93,22 @@ class Room:
         """
         Setting character to the room
         """
-        self.additional[0] = enemy
+        self.character = enemy
 
     def set_item(self, item = Item):
         """
         Setting item to the room
         """
-        self.additional[1] = item
+        self.item = item
 
     def get_character(self):
-        for elem in self.additional:
-            if isinstance(elem, Enemy):
-                return elem
+        if self.character != None:
+            return self.character
         return None
 
     def get_item(self):
-        for elem in self.additional:
-            if isinstance(elem, Item):
-                return elem
+        if self.item != None:
+            return self.item
         return None
 
     def move(self, move):
@@ -118,23 +129,3 @@ class Room:
         print(self.description)
         for elem in self.linking:
             print(f'The {elem[0].name} is {elem[1]}')
-
-
-# kitchen = Room("Kitchen")
-# kitchen.set_description("A dank and dirty room buzzing with flies.")
-# dining_hall = Room("Dining Hall")
-# dining_hall.set_description("A large room with ornate golden decorations on each wall.")
-# kitchen.link_room(dining_hall, "south")
-
-# dave = Enemy("Dave", "A smelly zombie")
-# dave.set_conversation("What's up, dude! I'm hungry.")
-# dave.set_weakness("cheese")
-# kitchen.set_character(dave)
-# cheese = Item("cheese")
-# cheese.set_description("A large and smelly block of cheese")
-# kitchen.set_item(cheese)
-# kitchen.get_details()
-# inhabitant = kitchen.get_character()
-# inhabitant.describe()
-# inhabitant.talk()
-# item = kitchen.get_item()
