@@ -1,7 +1,14 @@
+"""Game - lab4, task 5"""
 class Friend:
+    """
+    Empty class.
+    """
     pass
 
 class Person:
+    """
+    Empty class.
+    """
     pass
 
 
@@ -18,7 +25,7 @@ class Enemy:
     """
 
     defeated = 0
-    
+
     def __init__(self, enemy: str, describtion: str) -> None:
         """
         Initializes an enemy with its name and description.
@@ -82,7 +89,7 @@ class Enemy:
             Enemy.defeated += 1
             return True
         return False
-    
+
     def get_defeated(self) -> int:
         """
         Returns the number of enemies defeated.
@@ -102,7 +109,7 @@ class Item:
     def __init__(self, item: str) -> None:
         """
         Initializes an item with its name.
-        
+
         Parameters:
         item (str): The name of the item.
         """
@@ -191,7 +198,7 @@ class Room:
         """
         Get the character (enemy) in this room.
         """
-        if self.character != None:
+        if self.character is not None:
             return self.character
         return None
 
@@ -199,7 +206,7 @@ class Room:
         """
         Get the item in this room.
         """
-        if self.item != None:
+        if self.item is not None:
             return self.item
         return None
 
