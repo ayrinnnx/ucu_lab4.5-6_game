@@ -1,4 +1,4 @@
-import game
+import task5.game as game
 
 kitchen = game.Room("Kitchen")
 kitchen.set_description("A dank and dirty room buzzing with flies.")

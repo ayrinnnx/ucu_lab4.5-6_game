@@ -26,7 +26,7 @@ class Enemy:
 
     defeated = 0
 
-    def __init__(self, enemy: str, describtion: str) -> None:
+    def __init__(self, enemy: str, description: str) -> None:
         """
         Initializes an enemy with its name and description.
 
@@ -34,7 +34,8 @@ class Enemy:
         enemy (str): The name of the enemy.
         description (str): The description of the enemy.
         """
-        self.enemy = [enemy, describtion]
+        self.enemy = [enemy, description]
+        self.description = description
 
     def set_conversation(self, conversation) -> None:
         """
