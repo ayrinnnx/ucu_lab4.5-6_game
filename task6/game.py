@@ -1,4 +1,4 @@
-"""Game - lab4, task 5"""
+"""Game - lab4, task 6"""
 class Friend:
     """
     Empty class.
@@ -96,6 +96,36 @@ class Enemy:
         Returns the number of enemies defeated.
         """
         return Enemy.defeated
+
+    def get_name(self) -> str:
+        """
+        Gets name of the enemy.
+        """
+        return self.enemy[0]
+
+
+class Boss(Enemy):
+    """
+    Subclass of class Enemy.
+    Boss that needs one more action to defeat.
+    """
+    def __init__(self, enemy: str, description: str) -> None:
+        super().__init__(enemy, description)
+        self.boss_special = []
+
+    def set_weakness_command(self, command) -> None:
+        """
+        Setts one more point to kill enemy.
+        Parameters:
+        command (function of Enemy): function of the Enemy
+        """
+        self.boss_special.append(command)
+
+    def set_add_hearts(self, hearts: int) -> None:
+        """
+        Sets number of additional lives of the boss.
+        """
+        self.boss_special.append(hearts)
 
 
 class Item:

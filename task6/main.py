@@ -1,3 +1,4 @@
+"""Main.py"""
 import game
 
 rynok = game.Room("Стрийський ринок")
@@ -28,10 +29,11 @@ street.link_room(vernisaz, "west")
 vernisaz.link_room(square, "south")
 
 
-granny = game.Enemy("Гадра", "Сварлива бабця, що йде по твою душу.")  #boss
+granny = game.Boss("Гадра", "Сварлива бабця, що йде по твою душу.")  #boss
 granny.set_conversation("Внучок/внученька, ходь до мене побалакати.")
-granny.set_weakness("Пиріжок")
-granny.set_weakness("Розмова")
+granny.set_weakness("Сокира")
+granny.set_weakness_command('talk')
+granny.set_add_hearts(1)
 rynok.set_character(granny)
 
 buhach = game.Enemy("Бухач", "Злодій, який готовий обікрати тебе за кутом.")
@@ -76,6 +78,7 @@ while dead == False:
     current_room.get_details()
 
     inhabitant = current_room.get_character()
+
     if inhabitant is not None:
         inhabitant.describe()
 
@@ -88,6 +91,16 @@ while dead == False:
     if command in ["north", "south", "east", "west"]:
         # Move in the given direction
         current_room = current_room.move(command)
+    elif inhabitant.get_name() == 'Гадра' and command == granny.boss_special[0]:
+        if granny.boss_special[1] == 1:
+            granny.boss_special[1] = 'x'
+            print('You made her better. Now she has one less heart of life.')
+        else:
+            try:
+                granny.boss_special[1] -= 1
+                print('You made her better. Now she has one less heart of life.')
+            except TypeError:
+                print('You speak too much!!')
     elif command == "talk":
         # Talk to the inhabitant - check whether there is one!
         if inhabitant is not None:
@@ -103,9 +116,12 @@ while dead == False:
 
                 if inhabitant.fight(fight_with) == True:
                     # What happens if you win?
-                    print("Hooray, you won the fight!")
+                    if (inhabitant.get_name() == 'Гадра' and granny.boss_special[1] == 'x') or inhabitant.get_name() != 'Гадра':
+                        print("Hooray, you won the fight!")
+                    elif inhabitant == granny:
+                        print("Your granny has one heart less. Try smth else, too!!")
                     current_room.character = None
-                    if inhabitant.get_defeated() == 2:
+                    if inhabitant.get_defeated() == 4:
                         print("Congratulations, you have vanquished the enemy horde!")
                         dead = True
                 else:
