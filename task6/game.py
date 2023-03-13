@@ -4,9 +4,9 @@ class Person:
     """
     Class of player.
     """
+    lives = 0
     def __init__(self, name: str) -> None:
         self.name = name
-        self.lives = 0
 
     def __repr__(self) -> str:
         return self.name
@@ -14,29 +14,22 @@ class Person:
     def __str__(self) -> str:
         return (f'Здоров були {self.name}! Тож починається твоя подорож зі Стрийського ринку.\n'
                 'Ти відвідаєш Площу Ринок, Вул. Підвальну, KFC, Львівську оперу та Вернісаж.\n'
-                'Успіхів!!')
+                'Успіхів!! \n')
 
     def set_lives(self, hearts = 1) -> None:
         """
         Sets lives for the player.
         """
-        self.lives = hearts
+        Person.lives = hearts
 
     def check_lives(self) -> bool:
         """
         Checks if player still have any hearts.
         """
-        self.lives -= 1
-        if self.lives >=1 :
+        Person.lives -= 1
+        if Person.lives >=1 :
             return True
         return False
-
-
-class Friend:
-    """
-    Empty class.
-    """
-    pass
 
 
 class Enemy:
@@ -93,13 +86,13 @@ class Enemy:
         """
         Prints the name and description of the enemy.
         """
-        print(f'{self.enemy[0]} is here!\n{self.enemy[1]}')
+        print(f'{self.enemy[0]} тут!\n{self.enemy[1]}')
 
     def talk(self) -> None:
         """
         Prints the conversation of the enemy.
         """
-        print(f'[{self.enemy[0]} says]: {self.enemy[2]}')
+        print(f'[{self.enemy[0]} каже]: {self.enemy[2]}')
 
     def fight(self, item) -> bool:
         """
@@ -155,6 +148,21 @@ class Boss(Enemy):
         self.boss_special.append(hearts)
 
 
+class Friend(Enemy):
+    """
+    Empty class.
+    """
+    def speech(self) -> bool:
+        """
+        Gives random question and gives a gift.
+        """
+        joke = input("Розкажи жартик, може порадую тебе;) \n")
+        return True if len(joke) > 10 else False
+
+    def __repr__(self) -> str:
+        return self.enemy[0]
+
+
 class Item:
     """
     Main class of items. Includes main information of it.
@@ -188,13 +196,27 @@ class Item:
         """
         Prints the name and description of the item.
         """
-        print(f'The [{self.item[0]}] is here - {self.item[1]}')
+        print(f'[{self.item[0]}] тут - {self.item[1]}')
 
     def get_name(self) -> str:
         """
         Returns the name of the item.
         """
         return self.item[0]
+
+
+class Hospital(Item, Person):
+    """
+    Adding more lives for a Player.
+    """
+    def __str__(self) -> str:
+        return f'Ти получив {self.get_name()}. Це додає тобі ще +1 удар до смерті!'
+
+    def get_more_hearts(self) -> None:
+        """
+        Gives one more chance to loose.
+        """
+        Person.lives += 1
 
 
 class Room:
@@ -223,7 +245,6 @@ class Room:
         self.linking = []
         self.character = None
         self.item = None
-        self.defeated = 0
 
 
     def set_description(self, description: str) -> None:
@@ -275,9 +296,6 @@ class Room:
         for elem in self.linking:
             if elem[1] == move:
                 self.room = elem[0]
-                self.name = elem[0].name
-                self.description = elem[0].description
-                self.linking = elem[0].linking
         return self.room
 
     def get_details(self) -> None:
@@ -288,7 +306,7 @@ class Room:
         print('--------------------')
         print(self.description)
         for elem in self.linking:
-            print(f'The {elem[0].name} is {elem[1]}')
+            print(f'{elem[0].name} є, якщо йти на {elem[1]}')
 
 
 if __name__ == '__main__':

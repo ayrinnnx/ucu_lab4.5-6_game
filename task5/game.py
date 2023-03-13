@@ -218,9 +218,6 @@ class Room:
         for elem in self.linking:
             if elem[1] == move:
                 self.room = elem[0]
-                self.name = elem[0].name
-                self.description = elem[0].description
-                self.linking = elem[0].linking
         return self.room
 
     def get_details(self) -> None:
