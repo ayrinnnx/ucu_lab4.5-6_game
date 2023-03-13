@@ -1,6 +1,9 @@
 """Main.py"""
 import game
 
+player = game.Person(input("Введи ім'я: "))
+player.set_lives(2)
+
 rynok = game.Room("Стрийський ринок")
 rynok.set_description("Ринок пригод.")
 
@@ -34,7 +37,7 @@ granny.set_conversation("Внучок/внученька, ходь до мене
 granny.set_weakness("Сокира")
 granny.set_weakness_command('talk')
 granny.set_add_hearts(1)
-rynok.set_character(granny)
+street.set_character(granny)
 
 buhach = game.Enemy("Бухач", "Злодій, який готовий обікрати тебе за кутом.")
 buhach.set_conversation("Не бійся, я не страшний, нічого не зроблю.")
@@ -127,8 +130,11 @@ while dead == False:
                 else:
                     # What happens if you lose?
                     print("Oh dear, you lost the fight.")
-                    print("That's the end of the game")
-                    dead = True
+                    if player.check_lives():
+                        print('You still have chance to win!')
+                    else:
+                        print("That's the end of the game")
+                        dead = True
             else:
                 print("You don't have a " + fight_with)
         else:

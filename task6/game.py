@@ -1,11 +1,38 @@
 """Game - lab4, task 6"""
-class Friend:
-    """
-    Empty class.
-    """
-    pass
 
 class Person:
+    """
+    Class of player.
+    """
+    def __init__(self, name: str) -> None:
+        self.name = name
+        self.lives = 0
+
+    def __repr__(self) -> str:
+        return self.name
+
+    def __str__(self) -> str:
+        return (f'Здоров були {self.name}! Тож починається твоя подорож зі Стрийського ринку.\n'
+                'Ти відвідаєш Площу Ринок, Вул. Підвальну, KFC, Львівську оперу та Вернісаж.\n'
+                'Успіхів!!')
+
+    def set_lives(self, hearts = 1) -> None:
+        """
+        Sets lives for the player.
+        """
+        self.lives = hearts
+
+    def check_lives(self) -> bool:
+        """
+        Checks if player still have any hearts.
+        """
+        self.lives -= 1
+        if self.lives >=1 :
+            return True
+        return False
+
+
+class Friend:
     """
     Empty class.
     """
