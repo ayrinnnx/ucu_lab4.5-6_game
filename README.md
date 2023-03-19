@@ -56,6 +56,6 @@ Additional information about how to win:
 
 -- "Бухач" at Vernissage needs "Сокира"
 
--- "Хабаль" (boss) at Market Square needs 'Снодійне'
+-- "Хабаль" at Market Square needs 'Снодійне'
 
 -- "Хірус" at KFC needs "Квашений огірок"
